@@ -15,7 +15,7 @@ SOLUTIONS
 
 - Using ElastichSearch as search engine
 
-  * Run and start it as a service with local IP and ports.
+  * Run and start it as a service with local IP and port.
   * Create mapping to index products into ES
   * Import the products (json file) into ES
   * Use restFul APIs for indexing and searching
@@ -33,7 +33,7 @@ SOLUTIONS
 TUTORIAL PRE-WORK
 =================
 
-To start this project, first you need to complete the following
+To start this homework, first you need to complete the following
 prerequisites:
 
 1. Install JDK
@@ -45,4 +45,16 @@ prerequisites:
 	* Run @bin/elasticsearch@
 	* Run @curl -X GET http://localhost:9200/@ or open it on browser.
 
-3. Insall python >= 3.6.4, use for simple http server
+3. Insall python, use for simple http server as search app
+  * Install python virual env
+    @apt-get install python3-venv@
+
+  * In root of the repository, set up a virtualenv:
+    @python3 -m venv venv@
+    @source venv/bin/activate@
+
+  * Install the necessary python requirements:
+    @pip install -r requirements.txt@
+
+  * Set up the searchapp packages.
+    @pip install -e .@
