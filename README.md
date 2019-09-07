@@ -4,6 +4,7 @@ HOMEWORK REQUIREMENTS
 Building a simple search engine of product for e-commerce
 sites using ElastichSearch with following requirements:
 
+- Create an index with settings and mappings to store products
 - Import products (downloaded from https://www.sendo.vn/thoi-trang-nu) into ES
 - Write an API to seach product acording to name or description
 - Write an API to aggregate the product acording to price
@@ -15,8 +16,8 @@ SOLUTIONS
 
 - Using ElastichSearch as search engine
 
-  * Run and start it as a service with local IP and port.
-  * Create mapping to index products into ES
+  * Run and start it as a service with local IP and port (default 9200)
+  * Create an index with settings and mappings to index products into ES
   * Import the products (json file) into ES
   * Use restFul APIs for indexing and searching
 
@@ -42,8 +43,10 @@ prerequisites:
 2. Download, install and run elastich search
 	* "Download":https://www.elastic.co/downloads/elasticsearch and
 	  unzip the Elasticsearch official distribution.
+    You can take directly elastichsearch-6.2.2 from the repository.
 	* Run @bin/elasticsearch@
-	* Run @curl -X GET http://localhost:9200/@ or open it on browser.
+	* Run @curl -X GET http://localhost:9200/@ or open it on browser to check if
+    Elastichsearch is working correctly.
 
 3. Insall python, use for simple http server as search app
   * Install python virual env
