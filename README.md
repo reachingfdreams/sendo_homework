@@ -90,3 +90,14 @@ Write the code with pythons using the two above and more APIs:
 - Run @python index_products.py@ to create the index
 - Check the result by opening @http://localhost:9200/sendo/product/1@ on
   the browser
+
+2. Get the all products and import into es
+
+- Write python code to get all products from "https://www.sendo.vn/thoi-trang-nu"
+  * Make request to "https://www.sendo.vn/thoi-trang-nu" to take all meta data
+    We have useful information from meta data: total_count and total_page
+  * Get all products using below API
+    GET https://www.sendo.vn/m/wap_v2/category/product?category_id=8&listing_algo=algo5&p=1&platform=web&s=60&sortType=vasup_desc
+  * Store all products into json file "thoi-trang-nu.json"
+  
+- Write python code to import all products fron the json file into es
