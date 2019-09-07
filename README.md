@@ -61,3 +61,32 @@ prerequisites:
 
   * Set up the searchapp packages.
     @pip install -e .@
+
+START MAIN WORKS
+================
+
+1. Create an index with settings and mappings to store products
+
+We need to understand the RESTFul APIs for creating an index into ES
+and the RESTFul api to add product with the index into ES:
+
+- RESTFul API to create new index with settings and mappings into ES
+  * PUT /index_name
+  * The request body
+    {
+      "settings": {},
+      "mappings": {}
+    }
+
+- RESTFul API to add a product with the created index into ES
+  * POST /index_name/doc_type/?_create
+  * Request Body
+    {
+      ...
+    }
+
+Write the code with pythons using the two above and more APIs:
+
+- Run @python index_products.py@ to create the index
+- Check the result by opening @http://localhost:9200/sendo/product/1@ on
+  the browser
