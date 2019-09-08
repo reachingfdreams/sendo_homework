@@ -99,12 +99,17 @@ START MAIN WORKS
 
 - Write python code to get all products from "https://www.sendo.vn/thoi-trang-nu"
 
-  * Make request to "https://www.sendo.vn/thoi-trang-nu" to take all meta data
+  * Make request to "https://www.sendo.vn/m/wap_v2/category/product?category_id=8&listing_algo=algo5&p=1&platform=web&s=60&sortType=vasup_desc" to take all meta data
     We have useful information from meta data: total_count and total_page
   * Get all products using below API
     GET https://www.sendo.vn/m/wap_v2/category/product?category_id=8&listing_algo=algo5&p=1&platform=web&s=60&sortType=vasup_desc
   * Store all products into json file "products.json"
-  
+
+  * All logic related code has been written in @products_downloader.py@
+    Run @python products_downloader.py total_page@
+    |total_page| is the number of requests to https://www.sendo.vn/m/wap_v2/category/product?category_id=8&listing_algo=algo5&p=1&platform=web&s=60&sortType=vasup_desc, each of  request (page index) will contains of 60 products.
+    Note "p=1" here means to be the page index.
+
 - Write python code to import all products fron the json file into es
 
   * Load all products into ivar, writtten in @searchapp/data.py@

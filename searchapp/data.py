@@ -44,7 +44,7 @@ def all_products():
         dir_path = os.path.dirname(os.path.realpath(__file__))
         products_path = os.path.join(dir_path, 'products.json')
         with open(products_path) as product_file:
-            for idx, product in enumerate(json.load(product_file)):
+            for idx, product in enumerate(json.load(product_file, strict=False)):
                 id_ = idx + 1  # ES indexes must be positive integers, so add 1
                 product_data = ProductData(id_, **product)
                 _all_products.append(product_data)
