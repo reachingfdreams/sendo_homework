@@ -1,6 +1,7 @@
 from elasticsearch import Elasticsearch
 
 from searchapp.constants import DOC_TYPE, INDEX_NAME
+from searchapp.data import all_products, ProductData
 
 
 def main():
@@ -16,24 +17,26 @@ def main():
         },
     )
 
-    index_testing_product(es)
+    # Add all products loaded from json file (simple case) into es.
+    # In reality, we can loaded all products from DB and index into es.
+    # TODO: This now index each product one by one which its not good
+    # for performance and take long time if having big data, consider to
+    # use bulk index API.
+    for product in all_products():
+        index_product(es, product)
 
+    # See if the indexing job is working or if it has stalled.
+    print("Indexed {}".format("all products from json file."))
 
-def index_testing_product(es):
-    """Add a single product to es for testing"""
+def index_product(es, product: ProductData):
+    """Add a single product to es"""
 
     es.create(
         index=INDEX_NAME,
         doc_type=DOC_TYPE,
-        id=1,
-        body={
-            "name": "Testing Product",
-            "image": "http://sendo.vn/thoi-trang-nu/ao-len.png",
-        }
+        id=product.id,
+        body=product.asDict()
     )
-
-    # See if the indexing job is working or if it has stalled.
-    print("Indexed {}".format("Testing Product"))
 
 
 if __name__ == '__main__':

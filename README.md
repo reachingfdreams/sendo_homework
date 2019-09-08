@@ -41,6 +41,7 @@ prerequisites:
    @sudo apt-get install default-jdk@
 
 2. Download, install and run elastich search
+
 	* "Download":https://www.elastic.co/downloads/elasticsearch and
 	  unzip the Elasticsearch official distribution.
     You can take directly elastichsearch-6.2.2 from the repository.
@@ -49,6 +50,7 @@ prerequisites:
     Elastichsearch is working correctly.
 
 3. Insall python, use for simple http server as search app
+
   * Install python virual env
     @apt-get install python3-venv@
 
@@ -67,33 +69,36 @@ START MAIN WORKS
 
 1. Create an index with settings and mappings to store products
 
-We need to understand the RESTFul APIs for creating an index into ES
-and the RESTFul api to add product with the index into ES:
+  We need to understand the RESTFul APIs for creating an index into ES
+  and the RESTFul api to add product with the index into ES:
 
-- RESTFul API to create new index with settings and mappings into ES
-  * PUT /index_name
-  * The request body
-    {
-      "settings": {},
-      "mappings": {}
-    }
+  - RESTFul API to create new index with settings and mappings into ES
 
-- RESTFul API to add a product with the created index into ES
-  * POST /index_name/doc_type/?_create
-  * Request Body
-    {
-      ...
-    }
+    * PUT /index_name
+    * The request body
+      {
+        "settings": {},
+        "mappings": {}
+      }
 
-Write the code with pythons using the two above and more APIs:
+  - RESTFul API to add a product with the created index into ES
 
-- Run @python index_products.py@ to create the index
-- Check the result by opening @http://localhost:9200/sendo/product/1@ on
-  the browser
+    * POST /index_name/doc_type/?_create
+    * The request body
+      {
+        ...
+      }
+
+  Write the code with pythons using the two above and more APIs:
+
+  - Run @python index_products.py@ to create the index
+  - Check the result by opening @http://localhost:9200/sendo/product/1@ on
+    the browser
 
 2. Get the all products and import into es
 
 - Write python code to get all products from "https://www.sendo.vn/thoi-trang-nu"
+
   * Make request to "https://www.sendo.vn/thoi-trang-nu" to take all meta data
     We have useful information from meta data: total_count and total_page
   * Get all products using below API
@@ -101,3 +106,6 @@ Write the code with pythons using the two above and more APIs:
   * Store all products into json file "thoi-trang-nu.json"
   
 - Write python code to import all products fron the json file into es
+
+  * Load all products into ivar, defined in @searchapp/data.py@
+  * Logic of importing (indexing) all products from json file written in @searchapp/index_products.py@
