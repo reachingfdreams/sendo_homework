@@ -103,9 +103,22 @@ START MAIN WORKS
     We have useful information from meta data: total_count and total_page
   * Get all products using below API
     GET https://www.sendo.vn/m/wap_v2/category/product?category_id=8&listing_algo=algo5&p=1&platform=web&s=60&sortType=vasup_desc
-  * Store all products into json file "thoi-trang-nu.json"
+  * Store all products into json file "products.json"
   
 - Write python code to import all products fron the json file into es
 
-  * Load all products into ivar, defined in @searchapp/data.py@
+  * Load all products into ivar, writtten in @searchapp/data.py@
   * Logic of importing (indexing) all products from json file written in @searchapp/index_products.py@
+
+3. Write an API to seach product acording to name or description
+
+  - Make an Http Server
+
+    * Flash App is used as a http server in this homework
+    * Running on localhost with 5000 port (we can setup custom IP and port for it)
+
+  - Write API for search acording to name or description and intergrate into http server
+
+    * Using RESTful API from es: @_search?q=search_terms@
+    * Write python code to implement search and show result, end users can easily use
+      seach by opening in the browser: @http://localhost:5000/index
