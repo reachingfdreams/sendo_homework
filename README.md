@@ -22,7 +22,7 @@ SOLUTIONS
   * Use restFul APIs for indexing and searching
 
 - Deploy a service which provide searching and aggregating APIs
-  
+
   * Using python as http servers
   * Run this server on local IP and port
     (publish IP if deployed to PRODUCTION)
@@ -126,4 +126,57 @@ START MAIN WORKS
 
     * Using RESTful API from es: @_search?q=search_terms@
     * Write python code to implement search and show result, end users can easily use
-      seach by opening in the browser: @http://localhost:5000/index
+      seach by opening in the browser: @http://localhost:5000/index@
+
+
+RUN WHOLE SERVICES ON UBUNTU 18.04
+==================================
+
+Open a new terminal and:
+
+1. Clone the repository: https://github.com/reachingfdreams/sendo_homework.git
+   and CD to the root of the repository.
+
+2. Install JAVA
+   - Run @sudo apt-get install default-jdk@
+
+3. Run elastichsearch: CD to @elasticsearch-6.2.2@
+  * Run @bin/elasicsearch@, this will start es on localhost:9200
+
+4. Install virtual python and its dependencies, open new terminal and
+   CD to the root of the repository.
+  - Install python virual env
+    Run @apt-get install python3-venv@
+
+  - In root of the repository, set up a virtualenv:
+    Run @python3 -m venv venv@
+    Run @source venv/bin/activate@
+
+  - Install the necessary python requirements:
+    Run @pip install -r requirements.txt@
+
+  - Set up the searchapp packages.
+    @pip install -e .@
+
+5. Fetch all products of sendo.vn/thoi-trang-nu
+  - Run @python products_downloader.py total_page@, |total_page| is an integer
+    and wait for a while to fetch all products.
+
+6. Import all fetched sendo products into es
+  - Run @python searchapp/index_products.py@ and wait for a while
+
+7. Start Python http server, which will publish search function to end users.
+  - Start server by runing @python searchapp/run.py@, this server will start
+    on localhost:5000
+
+8. Test search function
+  - Open a browser (Chromium is preferred) and type @http://localhost:5000/index@
+  - Start search any product you want and see the result
+
+
+TODO
+====
+
+1. Write aggreation API (4th section)
+2. Use docker-compose
+3. Optimize whole code if released to production.
