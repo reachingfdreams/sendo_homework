@@ -16,6 +16,20 @@
       margin-left: 15px;
     }
 
+    #search-bar-price-range {
+      display: flex;
+      margin: 20px 10px;
+    }
+
+    #search-bar-price-range input {
+      width: 100%;
+      padding: 10px;
+    }
+
+    #search-bar-price-range button {
+      margin-left: 15px;
+    }
+
     .bulk-results {
       display: flex;
       flex-wrap: wrap;
@@ -69,7 +83,13 @@
 
 
   <form id="search-bar" action="/search">
-    <input type="text" placeholder="Type name or description..." name="search" value="{{ search_term }}">
+    <input type="text" placeholder="Type name or description..." name="search" value="">
+    <button type="submit"><i class="fa fa-search">Search</i></button>
+  </form>
+
+  <form id="search-bar-price-range" action="/search">
+    <input type="text" placeholder="Type min price" name="min_price" value="">
+    <input type="text" placeholder="Type max price" name="max_price" value="">
     <button type="submit"><i class="fa fa-search">Search</i></button>
   </form>
 
