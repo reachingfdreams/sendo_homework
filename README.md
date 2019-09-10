@@ -7,7 +7,7 @@ sites using ElastichSearch with following requirements:
 - Create an index with settings and mappings to store products
 - Import products (downloaded from https://www.sendo.vn/thoi-trang-nu) into ES
 - Write an API to seach product acording to name or description
-- Write an API to aggregate the product acording to price
+- Write an API to aggregate the products acording to price range
 
 More details, please take a look at homework.pdf
 
@@ -72,62 +72,67 @@ START MAIN WORKS
   We need to understand the RESTFul APIs for creating an index into ES
   and the RESTFul api to add product with the index into ES:
 
-  - RESTFul API to create new index with settings and mappings into ES
+   - RESTFul API to create new index with settings and mappings into ES
 
-    * PUT /index_name
-    * The request body
-      {
-        "settings": {},
-        "mappings": {}
-      }
+     * PUT /index_name
+     * The request body
+       {
+         "settings": {},
+         "mappings": {}
+       }
 
-  - RESTFul API to add a product with the created index into ES
+   - RESTFul API to add a product with the created index into ES
 
-    * POST /index_name/doc_type/?_create
-    * The request body
-      {
-        ...
-      }
+     * POST /index_name/doc_type/?_create
+     * The request body
+       {
+         ...
+       }
 
   Write the code with pythons using the two above and more APIs:
 
-  - Run @python index_products.py@ to create the index
-  - Check the result by opening @http://localhost:9200/sendo/product/1@ on
-    the browser
+   - Run @python index_products.py@ to create the index
+   - Check the result by opening @http://localhost:9200/sendo/product/1@ on
+     the browser
 
 2. Get the all products and import into es
 
-- Write python code to get all products from "https://www.sendo.vn/thoi-trang-nu"
+   - Write python code to get all products from "https://www.sendo.vn/thoi-trang-nu"
 
-  * Make request to "https://www.sendo.vn/m/wap_v2/category/product?category_id=8&listing_algo=algo5&p=1&platform=web&s=60&sortType=vasup_desc" to take all meta data
-    We have useful information from meta data: total_count and total_page
-  * Get all products using below API
-    GET https://www.sendo.vn/m/wap_v2/category/product?category_id=8&listing_algo=algo5&p=1&platform=web&s=60&sortType=vasup_desc
-  * Store all products into json file "products.json"
+     * Make request to "https://www.sendo.vn/m/wap_v2/category/product?category_id=8&listing_algo=algo5&p=1&platform=web&s=60&sortType=vasup_desc" to take all meta data
+       We have useful information from meta data: total_count and total_page
+     * Get all products using below API
+       GET https://www.sendo.vn/m/wap_v2/category/product?category_id=8&listing_algo=algo5&p=1&platform=web&s=60&sortType=vasup_desc
+     * Store all products into json file "products.json"
 
-  * All logic related code has been written in @products_downloader.py@
-    Run @python products_downloader.py total_page@
-    |total_page| is the number of requests to https://www.sendo.vn/m/wap_v2/category/product?category_id=8&listing_algo=algo5&p=1&platform=web&s=60&sortType=vasup_desc, each of  request (page index) will contains of 60 products.
-    Note "p=1" here means to be the page index.
+    * All logic related code has been written in @products_downloader.py@
+      Run @python products_downloader.py total_page@
+      |total_page| is the number of requests to https://www.sendo.vn/m/wap_v2/category/product?category_id=8&listing_algo=algo5&p=1&platform=web&s=60&sortType=vasup_desc, each of  request (page index) will contains of 60 products.
+      Note "p=1" here means to be the page index.
 
-- Write python code to import all products fron the json file into es
+   - Write python code to import all products fron the json file into es
 
-  * Load all products into ivar, writtten in @searchapp/data.py@
-  * Logic of importing (indexing) all products from json file written in @searchapp/index_products.py@
+     * Load all products into ivar, writtten in @searchapp/data.py@
+     * Logic of importing (indexing) all products from json file written in @searchapp/index_products.py@
 
 3. Write an API to seach product acording to name or description
 
-  - Make an Http Server
+   - Make an Http Server
 
-    * Flash App is used as a http server in this homework
-    * Running on localhost with 5000 port (we can setup custom IP and port for it)
+     * Flash App is used as a http server in this homework
+     * Running on localhost with 5000 port (we can setup custom IP and port for it)
 
-  - Write API for search acording to name or description and intergrate into http server
+   - Write API for search acording to name or description and intergrate into http server
 
-    * Using RESTful API from es: @_search?q=search_terms@
-    * Write python code to implement search and show result, end users can easily use
-      seach by opening in the browser: @http://localhost:5000/index@
+     * Using RESTful API from es: @_search?q=search_terms@
+     * Write python code to implement search and show result, end users can easily use
+       seach by opening in the browser: @http://localhost:5000/index@
 
+
+4. Write API to aggregate the products acording to price range
+  
+   - Use "Range Query" from es.
+   
 
 RUN WHOLE SERVICES ON UBUNTU 18.04
 ==================================
@@ -141,42 +146,41 @@ Open a new terminal and:
    - Run @sudo apt-get install default-jdk@
 
 3. Run elastichsearch: CD to @elasticsearch-6.2.2@
-  * Run @bin/elasicsearch@, this will start es on localhost:9200
+   - Run @bin/elasicsearch@, this will start es on localhost:9200
 
 4. Install virtual python and its dependencies, open new terminal and
    CD to the root of the repository.
-  - Install python virual env
-    Run @apt-get install python3-venv@
+    - Install python virual env
+      Run @apt-get install python3-venv@
 
-  - In root of the repository, set up a virtualenv:
-    Run @python3 -m venv venv@
-    Run @source venv/bin/activate@
+    - In root of the repository, set up a virtualenv:
+      Run @python3 -m venv venv@
+      Run @source venv/bin/activate@
 
-  - Install the necessary python requirements:
-    Run @pip install -r requirements.txt@
+    - Install the necessary python requirements:
+      Run @pip install -r requirements.txt@
 
-  - Set up the searchapp packages.
-    @pip install -e .@
+    - Set up the searchapp packages.
+      @pip install -e .@
 
 5. Fetch all products of sendo.vn/thoi-trang-nu
-  - Run @python products_downloader.py total_page@, |total_page| is an integer
-    and wait for a while to fetch all products.
+    - Run @python products_downloader.py total_page@, |total_page| is an integer
+      and wait for a while to fetch all products.
 
 6. Import all fetched sendo products into es
-  - Run @python searchapp/index_products.py@ and wait for a while
+    - Run @python searchapp/index_products.py@ and wait for a while
 
 7. Start Python http server, which will publish search function to end users.
-  - Start server by runing @python searchapp/run.py@, this server will start
-    on localhost:5000
+    - Start server by runing @python searchapp/run.py@, this server will start
+      on localhost:5000
 
 8. Test search function
-  - Open a browser (Chromium is preferred) and type @http://localhost:5000/index@
-  - Start search any product you want and see the result
+    - Open a browser (Chromium is preferred) and type @http://localhost:5000/index@
+    - Start search any product you want and see the result
 
 
 TODO
 ====
 
-1. Write aggreation API (4th section)
-2. Use docker-compose
-3. Optimize whole code if released to production.
+1. Use docker-compose
+2. Optimize whole code if released to production.
